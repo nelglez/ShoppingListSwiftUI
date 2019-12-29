@@ -13,6 +13,7 @@ import FirebaseAuth
 struct HomeView: View {
     @EnvironmentObject var list: ShoppingListController
     
+    
       @ObservedObject var connectionStatus = ConnectionStatus()
       @State var text: String = ""
     @State private var showingHome = false
@@ -72,7 +73,7 @@ struct HomeView: View {
                }, label: {
                 Text("Logout")
                })).sheet(isPresented: $showingHome) {
-                    ContentView().environmentObject(self.list)
+                ContentView().environmentObject(self.list)
         }
                
            }

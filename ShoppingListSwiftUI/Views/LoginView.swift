@@ -10,7 +10,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
-     @EnvironmentObject var list: ShoppingListController
+   @EnvironmentObject var list: ShoppingListController
    @State var email = ""
     @State var pass = ""
     @State var msg = ""
@@ -112,6 +112,7 @@ struct LoginView: View {
 
 struct BottomView: View{
     @State var show = false
+    
     
     var body : some View{
         

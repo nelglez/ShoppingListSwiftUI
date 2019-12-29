@@ -11,13 +11,13 @@ import FirebaseAuth
 import Firebase
 
 class UserController {
-       var user = User()
+      var user = User()
        let auth = Auth.auth()
        let db = Firestore.firestore()
        var userListener: ListenerRegistration? = nil
     
        
-       var isGuest: Bool {
+        var isGuest: Bool {
            guard let authUser = Auth.auth().currentUser else {
                return true
            }

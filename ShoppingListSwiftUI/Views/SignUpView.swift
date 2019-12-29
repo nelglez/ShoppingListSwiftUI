@@ -13,6 +13,7 @@ import Firebase
 
 struct SignUpView: View {
    @EnvironmentObject var list: ShoppingListController
+    
     @State private var username = ""
     @State private var pass = ""
     @State private var email = ""
