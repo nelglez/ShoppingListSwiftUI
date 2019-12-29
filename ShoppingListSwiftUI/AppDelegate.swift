@@ -4,7 +4,7 @@
 //
 //  Created by Nelson Gonzalez on 12/28/19.
 //  Copyright © 2019 Nelson Gonzalez. All rights reserved.
-//
+//https://github.com/alfianlosari/SwiftUIRealtimeShoppingCart
 
 import UIKit
 import Firebase

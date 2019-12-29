@@ -9,5 +9,7 @@ target 'ShoppingListSwiftUI' do
 
 pod 'Firebase/Firestore'
 pod 'Firebase/Database'
+pod 'Firebase/Auth'
+pod 'GoogleSignIn' 
 
 end
