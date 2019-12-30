@@ -15,7 +15,6 @@ struct LoginView: View {
     @State var pass = ""
     @State var msg = ""
     @State var alert = false
-    @State private var showingHome = false
     
     var body: some View{
         
@@ -69,11 +68,12 @@ struct LoginView: View {
                     }
                         
                        print("Success")
-                        
-                    
+                      
+                     UserDefaults.standard.set(true, forKey: "status")
+                     NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                 
                 }
-                self.showingHome.toggle()
+              
                 
             }) {
                 
@@ -82,9 +82,7 @@ struct LoginView: View {
                 
             }.background(Color("bg"))
             .clipShape(Capsule())
-                .padding(.top, 45).sheet(isPresented: $showingHome) {
-                    HomeView().environmentObject(self.list)
-            }
+                .padding(.top, 45)
            
             BottomView()
             
@@ -104,7 +102,8 @@ struct LoginView: View {
                 completion(false, (err?.localizedDescription)!)
                 return
             }
-            
+           
+           
             completion(true, (res?.user.email)!)
         }
     }

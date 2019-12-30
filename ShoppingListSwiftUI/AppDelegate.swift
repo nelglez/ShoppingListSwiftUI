@@ -13,10 +13,10 @@ import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
-    
 
 let clientID = "585508378371-18qr1p2b2itul0le3lh6co2ho3es0on8.apps.googleusercontent.com"
-
+  
+   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
@@ -70,27 +70,30 @@ let clientID = "585508378371-18qr1p2b2itul0le3lh6co2ho3es0on8.apps.googleusercon
            
            Auth.auth().signIn(with: credential) { (res, err) in
                
-               if err != nil{
+               if err != nil {
                    
                    print((err?.localizedDescription)!)
                    return
                }
                
                print(res!.user.email)
-            
-            // Perform any operations on signed in user here.
-                  let userId = user.userID                  // For client-side use only!
-                  let idToken = user.authentication.idToken // Safe to send to the server
-                  let fullName = user.profile.name
-                  let givenName = user.profile.givenName
-                  let familyName = user.profile.familyName
-                  let email = user.profile.email
-                 
-                    let artUser = User(id: userId!, email: email!, username: givenName!)
-                                //Upload to Firestore
-                             self.createFirestoreUser(user: artUser)
-              
+        
            }
+        
+        // Perform any operations on signed in user here.
+                         let userId = user.userID                  // For client-side use only!
+                         let idToken = user.authentication.idToken // Safe to send to the server
+                         let fullName = user.profile.name
+                         let givenName = user.profile.givenName
+                         let familyName = user.profile.familyName
+                         let email = user.profile.email
+                        
+                           let artUser = User(id: userId!, email: email!, username: givenName!)
+                                       //Upload to Firestore
+                   
+                  
+                                    self.createFirestoreUser(user: artUser)
+               
      
        }
 
@@ -112,12 +115,15 @@ let clientID = "585508378371-18qr1p2b2itul0le3lh6co2ho3es0on8.apps.googleusercon
                        return
                      } else {
                          print("New User Created")
+                        UserDefaults.standard.set(true, forKey: "status")
                         NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                       
                      }
                      
                  }
              }
+    
+   
 
     // MARK: UISceneSession Lifecycle
 

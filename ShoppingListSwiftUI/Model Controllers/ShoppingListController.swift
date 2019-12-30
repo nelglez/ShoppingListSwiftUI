@@ -13,7 +13,7 @@ import FirebaseFirestore
 
 class ShoppingListController: ObservableObject {
     
-    @Published private(set) var items: [Item] = []
+    @Published var items: [Item] = []
     private var listener: ListenerRegistration?
     private var db = Firestore.firestore().collection("shopping_notes")
     

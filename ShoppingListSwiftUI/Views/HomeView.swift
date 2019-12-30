@@ -12,12 +12,9 @@ import FirebaseAuth
 
 struct HomeView: View {
     @EnvironmentObject var list: ShoppingListController
+    @ObservedObject var connectionStatus = ConnectionStatus()
+    @State var text: String = ""
     
-    
-      @ObservedObject var connectionStatus = ConnectionStatus()
-      @State var text: String = ""
-    @State private var showingHome = false
-   
       var body: some View {
         
      NavigationView {
@@ -41,10 +38,10 @@ struct HomeView: View {
                    
                    if !self.list.items.filter({!$0.isPurchased}).isEmpty {
                        
-                       SectionItemView(title: "Pending", items: self.list.items.filter({!$0.isPurchased}), onTap: self.onTap, onDelete: self.onDelete)
+                    SectionItemView(title: "Pending", items: self.list.items.filter({!$0.isPurchased}), onTap: self.onTap, onDelete: self.onDelete)
                    }
                    if !self.list.items.filter({$0.isPurchased}).isEmpty {
-                       SectionItemView(title: "Purchased", items: self.list.items.filter({$0.isPurchased}), onTap: self.onTap, onDelete: self.onDelete)
+                    SectionItemView(title: "Purchased", items: self.list.items.filter({$0.isPurchased}), onTap: self.onTap, onDelete: self.onDelete)
                    }
                    }
                .onAppear {
@@ -55,16 +52,15 @@ struct HomeView: View {
                    })
                    self.connectionStatus.startListening()
                }
-               .onDisappear {
-                   self.list.stopListener()
-                   self.connectionStatus.stopListening()
-               }
                .navigationBarTitle("Shopping Cart ⚡️")
                .navigationBarItems(leading: Button(action: {
                 do {
                     try Auth.auth().signOut()
                     
-                    self.showingHome.toggle()
+                    UserDefaults.standard.set(false, forKey: "status")
+                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                    
+                  
                     
                 } catch {
                     print(error.localizedDescription)
@@ -72,9 +68,7 @@ struct HomeView: View {
                 
                }, label: {
                 Text("Logout")
-               })).sheet(isPresented: $showingHome) {
-                ContentView().environmentObject(self.list)
-        }
+               }))
                
            }
        }

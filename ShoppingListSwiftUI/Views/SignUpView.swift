@@ -13,14 +13,12 @@ import Firebase
 
 struct SignUpView: View {
    @EnvironmentObject var list: ShoppingListController
-    
-    @State private var username = ""
-    @State private var pass = ""
-    @State private var email = ""
-    @State private var alert = false
-    @State private var msg = ""
-   // @Binding var show: Bool
-    @State private var showOtherView = false
+   @State private var username = ""
+   @State private var pass = ""
+   @State private var email = ""
+   @State private var alert = false
+   @State private var msg = ""
+
     
     var body : some View{
         
@@ -88,8 +86,6 @@ struct SignUpView: View {
                             self.msg = error.localizedDescription
                             self.alert.toggle()
                         }
-                       // self.show.toggle()
-                        self.showOtherView.toggle()
                         
                     }
                     
@@ -100,10 +96,7 @@ struct SignUpView: View {
                     
                 }.background(Color("bg"))
                 .clipShape(Capsule())
-                    .padding(.top, 45).sheet(isPresented: $showOtherView) {
-                        
-                        HomeView().environmentObject(self.list)
-                }
+                    .padding(.top, 45)
             
         }.padding()
         .alert(isPresented: $alert) {
@@ -153,7 +146,8 @@ struct SignUpView: View {
                     return
                   } else {
                       print("New User Created")
-                   
+                   UserDefaults.standard.set(true, forKey: "status")
+                   NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                   }
                   
               }
